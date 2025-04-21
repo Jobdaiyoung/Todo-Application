@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}My Todo List{% endblock %}
+
+{% block content %}
+<h2>My Todos</h2>
+<a href="{% url 'add_todo' %}">+ Add New Todo</a>
+<ul>
+    {% for todo in todos %}
+        <li>
+            {{ todo.title }} - {{ todo.get_status_display }}
+            <a href="{% url 'update_todo' todo.id %}">Edit</a>
+            <a href="{% url 'delete_todo' todo.id %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No todos yet!</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

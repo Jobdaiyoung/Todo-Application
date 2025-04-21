@@ -7,6 +7,11 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ['title', 'status', 'priority']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
+            'priority': forms.Select(attrs={'class': 'form-select'}),
+        }
 
 class SignUpForm(UserCreationForm):
     class Meta:

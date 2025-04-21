@@ -2,18 +2,36 @@
 {% block title %}My Todo List{% endblock %}
 
 {% block content %}
-<h2>My Todos</h2>
-<a href="{% url 'add_todo' %}">+ Add New Todo</a>
-<ul>
-    {% for todo in todos %}
-        <li>
-            {{ todo.title }} - {{ todo.get_status_display }}
-            <a href="{% url 'update_todo' todo.id %}">Edit</a>
-            <a href="{% url 'delete_todo' todo.id %}">Delete</a>
-        </li>
-    {% empty %}
-        <li>No todos yet!</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'logout' %}">Logout</a>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title text-center">My Todos</h2>
+    <div class="text-end mb-3">
+      <a href="{% url 'add_todo' %}" class="btn btn-success">+ Add New Todo</a>
+    </div>
+
+    {% if todos %}
+    <ul class="list-group">
+      {% for todo in todos %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ todo.title }}</strong>
+          <span class="badge bg-primary">{{ todo.get_status_display }}</span><br>
+          <small class="text-muted">Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
+        </div>
+        <div>
+          <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+          <a href="{% url 'delete_todo' todo.id %}"
+             class="btn btn-sm btn-outline-danger"
+             onclick="return confirm('Are you sure you want to delete this task?');">
+             Delete
+          </a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-muted text-center">No todos yet. Add your first task!</p>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

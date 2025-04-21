@@ -31,8 +31,36 @@ def logout_view(request):
     return redirect('login')
 
 def todo_list(request):
+    # Get filter and sort parameters from the request
+    status_filter = request.GET.get('status', None)
+    priority_filter = request.GET.get('priority', None)
+    sort_by = request.GET.get('sort_by', 'created_at')  # default: sort by created_at
+
+    # Start with all todos for the current user
     todos = Todo.objects.filter(user=request.user)
-    return render(request, 'todo_list.html', {'todos': todos})
+
+    # Apply status filter if selected
+    if status_filter:
+        todos = todos.filter(status=status_filter)
+
+    # Apply priority filter if selected
+    if priority_filter:
+        todos = todos.filter(priority=priority_filter)
+
+    # Sorting by created date or priority
+    if sort_by == 'created_at':
+        todos = todos.order_by('-created_at')  # newest first
+    elif sort_by == 'priority':
+        todos = todos.order_by('-priority')  # priority order (can be customized)
+
+    # Pass filtered and sorted todos to context
+    context = {
+        'todos': todos,
+        'status_filter': status_filter,
+        'priority_filter': priority_filter,
+        'sort_by': sort_by,
+    }
+    return render(request, 'todo_list.html', context)
 
 def add_todo(request):
     if request.method == 'POST':

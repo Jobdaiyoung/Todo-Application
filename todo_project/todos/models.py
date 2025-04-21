@@ -8,9 +8,9 @@ class Todo(models.Model):
         ('done', 'Done')
     ]
     PRIORITY_CHOICES = [
-        ('high', 'HIGH'),
-        ('medium', 'MEDIUM'),
-        ('low', 'LOW')
+        ('high', 'High'),
+        ('medium', 'Medium'),
+        ('low', 'Low')
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)

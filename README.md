@@ -96,7 +96,7 @@ Visit http://127.0.0.1:8000/ in your browser to access the app.
 ## Code Explanation
 #### System Architecture Diagram (Layered Architecture)
 
-![Architecture Diagram](todo_project/todos/static/Architecture Diagram.png)
+![Architecture Diagram](todo_project/todos/static/Architecture%20Diagram.png)
 1. Presentation Layer (Frontend/UI)
 - Handles user interaction via HTML templates styled with Bootstrap.
 - Contains reusable UI components like:

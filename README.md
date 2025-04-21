@@ -16,7 +16,35 @@ and filter or sort them by priority and status.
 
 ---
 
-## Installation
+## Framework
+This project is built using **Django**, a high-level Python web framework that promotes rapid development and clean, pragmatic design.
+
+I used:
+- Django views and templates for rendering frontend pages.
+- Django's built-in authentication system (customized manually) for user login and signup.
+- Bootstrap 5 for responsive styling and a clean UI.
+
+---
+
+## Database
+
+The application uses **SQLite3** by default, which is Django’s default lightweight relational database.
+
+### Database Structure:
+
+- **User** (Django's built-in User model)
+- **Todo**
+  - `id` (AutoField, Primary Key)
+  - `title` (CharField)
+  - `description` (TextField)
+  - `status` (CharField – "To Do", "In Progress", "Done")
+  - `created_at` (DateTimeField – auto_now_add)
+  - `user` (ForeignKey to Django User model)
+  - `priority` (CharField – "Low", "Medium", "High")
+
+---
+
+## Application Deployment
 
 ### 1. Clone the Repository
 
@@ -62,3 +90,29 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 Visit http://127.0.0.1:8000/ in your browser to access the app.
+
+---
+
+## Code Explanation
+#### System Architecture Diagram (Layered Architecture)
+
+![Architecture Diagram](/Users/hiwkhawmak/Todo-Application/todo_project/todos/static/Architecture Diagram.png)
+1. Presentation Layer (Frontend/UI)
+- Handles user interaction via HTML templates styled with Bootstrap.
+- Contains reusable UI components like:
+  - `base.html` → Layout, navbar, and Bootstrap integration
+  - `login.html`, `signup.html`, `todo_list.html`, etc.
+- Displays data and receives input from users.
+
+2. Business Logic Layer
+- Found in `views.py` and `forms.py`.
+- Responsible for:
+  - Handling user authentication (login, logout, signup)
+  - Processing form submissions (add/update/delete todos)
+  - Fetching filtered data (e.g., todos specific to the logged-in user)
+- Connects the UI with the database and applies app rules (like access control).
+
+3. Data Access Layer (Models)
+- Contains:
+  - Todo model linked to Django’s built-in User model.
+- Interacts with the underlying database (SQLite or PostgreSQL) using Django ORM.
